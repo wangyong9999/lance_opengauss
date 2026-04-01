@@ -1,0 +1,4 @@
+comment = 'Lance columnar data format Foreign Data Wrapper'
+default_version = '1.0'
+module_pathname = '$libdir/lance_fdw'
+relocatable = true

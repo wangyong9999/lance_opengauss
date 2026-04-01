@@ -1,0 +1,44 @@
+[workspace]
+
+[package]
+name = "lance_c"
+version = "0.1.0"
+edition = "2021"
+description = "Database-agnostic C API for reading Lance datasets"
+
+[lib]
+name = "lance_c"
+crate-type = ["staticlib"]
+path = "rust/lib.rs"
+
+[profile.release]
+lto = "thin"
+strip = true
+panic = "abort"
+
+[profile.dev]
+panic = "abort"
+
+[dependencies]
+# Cloud storage features (aws, gcp, azure) require rustc >= 1.91.1.
+# Enable in Docker build where newer rustc is available.
+# On host with older rustc, use default-features = false.
+lance = { version = "3.0.1", default-features = false, features = ["aws"] }
+lance-core = "3.0.1"
+lance-linalg = "3.0.1"
+
+arrow = { version = "57.0.0", features = ["ffi"] }
+arrow-array = "57.0.0"
+arrow-schema = "57.0.0"
+
+anyhow = "1.0"
+futures = "0.3"
+tokio = { version = "1", features = ["rt", "rt-multi-thread", "macros"] }
+
+[[bin]]
+name = "create_test_data"
+path = "rust/bin/create_test_data.rs"
+
+# The test binary doesn't need staticlib settings
+[profile.release.package.lance_c]
+# inherits from [profile.release]

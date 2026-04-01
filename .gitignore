@@ -1,0 +1,22 @@
+# Rust build artifacts
+/target/
+Cargo.lock
+
+# C++ build artifacts
+*.o
+*.so
+*.a
+/build/
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test artifacts
+/tmp/
